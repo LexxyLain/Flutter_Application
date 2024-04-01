@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'monthlyincome.dart';
 import 'bonusincome.dart';
 import 'settings.dart';
+import 'package:flutter/material.dart'; // Keep this import for Flutter widgets
+import 'package:table_calendar/table_calendar.dart'; // Import TableCalendar from the table_calendar package
 
 // Define a global variable to hold the budget value
 double globalBudget = 200.0;
@@ -31,6 +32,34 @@ class Home extends StatelessWidget {
         ),
         child: Column(
           children: [
+            TableCalendar(
+              // Update properties as needed
+              initialCalendarFormat: CalendarFormat.month,
+              calendarStyle: CalendarStyle(
+                todayColor: Colors.blue,
+                selectedColor: Theme.of(context).primaryColor,
+              ),
+              headerStyle: HeaderStyle(
+                formatButtonVisible: false,
+              ),
+              calendarBuilders: CalendarBuilders(
+                // Update cell styles as needed
+                selectedDayBuilder: (context, date, _) {
+                  return Container(
+                    margin: const EdgeInsets.all(4.0),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Text(
+                      date.day.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  );
+                },
+              ),
+            ),
             Expanded(
               child: Align(
                 alignment: Alignment.bottomLeft, // Align the button to the bottom left
